@@ -12,12 +12,14 @@ import * as companyActions from './../../state/company.actions';
   styleUrls: ['./company-list.component.scss']
 })
 export class CompanyListComponent implements OnInit {
+  loading$: Observable<boolean>;
   companies$: Observable<Company[]>;
 
   constructor(
     private store: Store<State>,
     private companyService: CompanyService) {
       this.companies$ = this.store.select(state => state.companies.results);
+      this.loading$ = this.store.select(state => state.companies.loading);
     }
 
     ngOnInit() {
@@ -30,7 +32,9 @@ export class CompanyListComponent implements OnInit {
   }
 
   deleteCompany(companyId: number) {
-    this.companyService.removeCompany(companyId)
-      .subscribe(() => this.getCompanies());
+    // this.companyService.removeCompany(companyId)
+    //   .subscribe(() => this.getCompanies());
+    this.store.dispatch(new companyActions.DeleteCompanyAction(companyId));
+    this.store.dispatch(new companyActions.DeleteCompanyAction(companyId));
   }
 }

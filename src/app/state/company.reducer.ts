@@ -21,6 +21,17 @@ export function reducer(
         ...state,
         results: action.payload
       };
+      case companyActions.DELETE_COMPANY:
+      return {
+        ...state,
+        loading: true
+      };
+      case companyActions.DELETE_COMPANY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        results: state.results.filter(company => action.payload.id !== company.id)
+      };
     default:
       return state;
   }
