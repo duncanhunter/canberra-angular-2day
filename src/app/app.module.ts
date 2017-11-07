@@ -12,13 +12,15 @@ import { companyReducer } from './reducers/companyReducer';
 import { CompanyTableComponent } from './company/company-table/company-table.component';
 import { CompanyEditComponent } from './company/company-edit/company-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CompanyTablesComponent } from './company/company-tables/company-tables.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CompanyListComponent,
     CompanyTableComponent,
-    CompanyEditComponent
+    CompanyEditComponent,
+    CompanyTablesComponent
   ],
   imports: [
     BrowserModule,

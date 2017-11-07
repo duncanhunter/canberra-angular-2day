@@ -6,9 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'sepcial tag';
-
-  testClickEvent(value) {
-    console.log('value', value);
-  }
+  title = 'fbc works!';
 }
