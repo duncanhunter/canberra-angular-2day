@@ -3,7 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
-import { AppState } from '../../reducers/index';
+import { State } from '../../models/State';
+import * as companyActions from './../../state/company.actions';
 
 @Component({
   selector: 'fbc-company-list',
@@ -14,17 +15,18 @@ export class CompanyListComponent implements OnInit {
   companies$: Observable<Company[]>;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<State>,
     private companyService: CompanyService) {
-    this.companies$ = this.store.select(state => state.companies);
-  }
+      this.companies$ = this.store.select(state => state.companies.results);
+    }
 
-  ngOnInit() {
-    this.getCompanies();
+    ngOnInit() {
+      this.getCompanies();
   }
 
   getCompanies() {
-    this.companies$ = this.companyService.getCompanies();
+    this.store.dispatch(new companyActions.LoadCompanyAction());
+    this.store.dispatch(new companyActions.LoadCompanyAction());
   }
 
   deleteCompany(companyId: number) {

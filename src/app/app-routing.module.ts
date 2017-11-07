@@ -4,10 +4,10 @@ import { CompanyListComponent } from './company/company-list/company-list.compon
 import { CompanyEditComponent } from './company/company-edit/company-edit.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'company/list' },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'company/list', component: CompanyListComponent },
-  { path: 'company/edit/:id', component: CompanyEditComponent }
-
+  { path: 'company/edit/:id', component: CompanyEditComponent },
+  { path: 'home', loadChildren: 'app/home/home.module#HomeModule' }
 ];
 
 @NgModule({

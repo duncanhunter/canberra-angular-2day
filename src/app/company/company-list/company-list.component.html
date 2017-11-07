@@ -2,4 +2,12 @@
   Companies
   <button class="btn btn-success float-right" [routerLink]="['/company/edit', 'new']">Add</button>
 </h1>
-<fbc-company-table (onDeleteCompany)="deleteCompany($event)" [companies]="companies$ | async"></fbc-company-table>
+<div class="row">
+  <div class="col-sm-6">
+    <fbc-company-table (onDeleteCompany)="deleteCompany($event)" [companies]="companies$ | async"></fbc-company-table>
+  </div>
+  <div class="col-sm-6">
+      <fbc-company-table (onDeleteCompany)="deleteCompany($event)" [companies]="companies$ | async"></fbc-company-table>
+  </div>
+</div>
+<!-- {{companies$ | async | json}} -->

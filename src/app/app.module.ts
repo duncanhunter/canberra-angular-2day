@@ -8,11 +8,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CompanyService } from './company/company.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { companyReducer } from './reducers/companyReducer';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CompanyTableComponent } from './company/company-table/company-table.component';
 import { CompanyEditComponent } from './company/company-edit/company-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CompanyTablesComponent } from './company/company-tables/company-tables.component';
+import { CompanyEffects } from './state/company.effects';
+import { reducer } from './state/company.reducer';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,6 @@ import { CompanyTablesComponent } from './company/company-tables/company-tables.
     CompanyListComponent,
     CompanyTableComponent,
     CompanyEditComponent,
-    CompanyTablesComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +29,9 @@ import { CompanyTablesComponent } from './company/company-tables/company-tables.
     NgbModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ companies: companyReducer })
+    StoreModule.forRoot({companies: reducer}),
+    EffectsModule.forRoot([CompanyEffects]),
+    StoreDevtoolsModule.instrument({maxAge: 25})
   ],
   providers: [CompanyService],
   bootstrap: [AppComponent]

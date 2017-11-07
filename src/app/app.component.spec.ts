@@ -1,15 +1,24 @@
 import { AppComponent } from './app.component';
-describe(`Component: App Component`, () => {
+
+describe(`AppComponent `, () => {
+let component: AppComponent;
+
+  beforeEach(() => {
+    component = new AppComponent();
+  });
+
   it(`should add 1 + 1`, () => {
     expect(1 + 1).toEqual(2);
   });
 
-  it(`should have a title of 'App Works!`, () => {
-    const component = new AppComponent();
+  it(`should have a component`, () => {
+    expect(component).toBeTruthy();
+  });
+
+  it(`should have a title of 'fbc works!'`, () => {
     expect(component.title).toEqual('fbc works!');
   });
 });
-
 
 // import { TestBed, async } from '@angular/core/testing';
 // import { RouterTestingModule } from '@angular/router/testing';

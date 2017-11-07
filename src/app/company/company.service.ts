@@ -7,7 +7,6 @@ import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { Store } from '@ngrx/store';
-import { AppState } from '../reducers/index';
 
 @Injectable()
 export class CompanyService {

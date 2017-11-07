@@ -9,6 +9,6 @@ describe('firebootcamp-crm App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to fbc!');
+    expect(page.getParagraphText()).toEqual('home works!');
   });
 });
