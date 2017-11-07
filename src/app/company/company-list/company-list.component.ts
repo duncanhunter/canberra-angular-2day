@@ -18,7 +18,8 @@ export class CompanyListComponent implements OnInit {
   constructor(
     private store: Store<State>,
     private companyService: CompanyService) {
-      this.companies$ = this.store.select(state => state.companies.results);
+      // this.companies$ = this.store.select(state => state.companies.results);
+      this.companies$ = this.companyService.companies$;
       this.loading$ = this.store.select(state => state.companies.loading);
     }
 
@@ -27,14 +28,20 @@ export class CompanyListComponent implements OnInit {
   }
 
   getCompanies() {
-    this.store.dispatch(new companyActions.LoadCompanyAction());
-    this.store.dispatch(new companyActions.LoadCompanyAction());
+    this.companyService.getCompanies();
+    // this.companies$
+    // this.store.dispatch(new companyActions.LoadCompanyAction());
+    // this.store.dispatch(new companyActions.LoadCompanyAction());
+  }
+
+  addCompany() {
+this.companyService.
   }
 
   deleteCompany(companyId: number) {
     // this.companyService.removeCompany(companyId)
     //   .subscribe(() => this.getCompanies());
     this.store.dispatch(new companyActions.DeleteCompanyAction(companyId));
-    this.store.dispatch(new companyActions.DeleteCompanyAction(companyId));
+    // this.store.dispatch(new companyActions.DeleteCompanyAction(companyId));
   }
 }

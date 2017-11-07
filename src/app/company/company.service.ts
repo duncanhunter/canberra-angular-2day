@@ -7,19 +7,24 @@ import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class CompanyService {
   API_BASE = 'http://firebootcamp-crm-api.azurewebsites.net/api';
+  private companySubject = new BehaviorSubject<Company[]>(null);
+  companies$ = this.companySubject.asObservable();
 
   constructor(private httpClient: HttpClient) {
     // this.startRandomAdding();
   }
 
-  getCompanies(): Observable<Company[]> {
-    return this.httpClient
+  getCompanies(): void {
+     this.httpClient
       .get<Company[]>(`${this.API_BASE}/company`)
-      .pipe(catchError(error => this.errorHandler(error)));
+      .pipe(catchError(error => this.errorHandler(error)))
+      .subscribe(companies => this.companySubject.next(companies));
   }
 
   removeCompany(companyId: number): Observable<Company> {

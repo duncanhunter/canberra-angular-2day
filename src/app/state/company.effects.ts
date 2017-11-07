@@ -15,22 +15,21 @@ export class CompanyEffects {
     private actions$: Actions
   ) { }
 
-  @Effect() get$ = this.actions$
-     .ofType(companyActions.LOAD_COMPANY)
-     .pipe(
-        tap(_ => console.log(companyActions.LOAD_COMPANY)),
-        switchMap(payload => this.companyService.getCompanies()),
-        map(companies => (new companyActions.LoadCompanySuccessAction(companies))
-      )).catch((error) => Observable.of(new companyActions.LoadCompanyFailAction(error)));
+  // @Effect() get$ = this.actions$
+  //    .ofType(companyActions.LOAD_COMPANY)
+  //    .pipe(
+  //       tap(_ => console.log(companyActions.LOAD_COMPANY)),
+  //       switchMap(payload => this.companyService.getCompanies()),
+  //       map(companies => (new companyActions.LoadCompanySuccessAction(companies))
+  //     )).catch((error) => Observable.of(new companyActions.LoadCompanyFailAction(error)));
 
       @Effect() delete$ = this.actions$
       .ofType(companyActions.DELETE_COMPANY)
       .pipe(
         tap(_ => console.log(1, companyActions.DELETE_COMPANY)),
-        tap(_ => console.log(2, companyActions.DELETE_COMPANY)),
         map(toPayload),
         switchMap(payload => this.companyService.removeCompany(payload)),
-        first(),
+        tap(_ => console.log(2, companyActions.DELETE_COMPANY)),
         map(company => (new companyActions.DeleteCompanySuccessAction(company))
      )).catch((error) => Observable.of(new companyActions.DeleteCompanyFailAction(error)));
 }
