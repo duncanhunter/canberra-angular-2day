@@ -13,18 +13,9 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class CompanyService {
   API_BASE = 'http://firebootcamp-crm-api.azurewebsites.net/api';
-  // this.startRandomAdding();
 
-  constructor(private httpClient: HttpClient,
-    private store: Store<AppState>) { }
-
-  loadCompanies(): void {
-    this.httpClient.get<any>(`${this.API_BASE}/company`)
-      .catch(this.errorHandler)
-      .subscribe(companies => this.store.dispatch({
-        type: 'LOAD_COMPANIES',
-        payload: companies
-    }));
+  constructor(private httpClient: HttpClient) {
+    // this.startRandomAdding();
   }
 
   getCompanies(): Observable<Company[]> {
@@ -39,14 +30,39 @@ export class CompanyService {
     );
   }
 
-  startRandomAdding() {
-    IntervalObservable.create(5000)
-      .pipe(switchMap(interval => this.httpClient.post<Company>(
-        `${this.API_BASE}/company`, {name: `company-${interval}`, email: 'email', phone: 123}
-      ))).subscribe();
+  addCompany(company: Company): Observable<Company> {
+    return this.httpClient
+      .post<Company>(`${this.API_BASE}/company`, company)
+      .pipe(catchError(error => this.errorHandler(error)));
   }
 
-  private errorHandler(error: Error): Observable<Company[]> {
+  updateCompany(company: Company): Observable<Company> {
+    return this.httpClient
+      .put<Company>(`${this.API_BASE}/company/${company.id}`, company)
+      .pipe(catchError(error => this.errorHandler(error)));
+  }
+
+  getCompany(companyId: number) {
+    return this.httpClient
+      .get<Company>(`${this.API_BASE}/company/${companyId}`)
+      .pipe(catchError(error => this.errorHandler(error)));
+  }
+
+  startRandomAdding() {
+    IntervalObservable.create(5000)
+      .pipe(
+        switchMap(interval =>
+          this.httpClient.post<Company>(`${this.API_BASE}/company`, {
+            name: `company-${interval}`,
+            email: 'email',
+            phone: 123
+          })
+        )
+      )
+      .subscribe(console.log);
+  }
+
+  private errorHandler(error: Error): Observable<any> {
     console.error('implement custom errort handler here', error);
     // return Observable.throw(error);
     return new EmptyObservable();

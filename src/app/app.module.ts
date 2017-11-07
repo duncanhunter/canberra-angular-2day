@@ -10,18 +10,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { companyReducer } from './reducers/companyReducer';
 import { CompanyTableComponent } from './company/company-table/company-table.component';
+import { CompanyEditComponent } from './company/company-edit/company-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     CompanyListComponent,
-    CompanyTableComponent
+    CompanyTableComponent,
+    CompanyEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule.forRoot(),
     HttpClientModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({ companies: companyReducer })
   ],
   providers: [CompanyService],
